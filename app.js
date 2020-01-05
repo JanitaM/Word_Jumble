@@ -17,18 +17,7 @@ let
   feedbackDisplay = document.getElementById("feedback");
 
 // Functions
-// Start the game
-const start = () => {
-  // Hide the start button
-  startBtn.style.display = "none";
-  // Show the submit and idk button
-  submitBtn.style.display = "inline-block";
-  idkBtn.style.display = "inline-block";
-  // Display the first word - but right now, i need to click on submitBtn to get the first word
-
-}
-
-// Clicking the "submit" 
+// Jumble function - shuffles the array and word
 const jumble = () => {
   //shuffle the current words array
 
@@ -37,14 +26,31 @@ const jumble = () => {
 
   // shuffle the letters around and save to state.jumbleWord
 
-  // display it
-  jumbleDisplay.innerHTML = state.currentWord; //display shuffled version
+  jumbleDisplay.innerHTML = state.currentWord; //this will display shuffled version
+}
+
+// Start the game
+const start = () => {
+  startBtn.style.display = "none";  // Hide the start button
+  // Show the submit and idk button
+  submitBtn.style.display = "inline-block";
+  idkBtn.style.display = "inline-block";
+  jumble(); // Display the first word by calling the jumble function
+}
+
+// Submit function
+const submit = () => {
+  // save the user's answer to a variable
+  userGuess = "";
+  userDisplay.value = userDisplay.innerHTML;
+  userGuess = userDisplay.value.toLowerCase();
+  console.log(userGuess);
 }
 
 // Clicking the "OK, IDK" button returns the answer which is in state.currentWord. It returns the answer to the hidden feedback div.
 const idk = () => feedbackDisplay.innerHTML = `It was: ${state.currentWord}`;
 
-
+// Event Listeners
 startBtn.addEventListener("click", start);
-submitBtn.addEventListener("click", jumble);
+submitBtn.addEventListener("click", submit);
 idkBtn.addEventListener("click", idk);
