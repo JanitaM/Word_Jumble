@@ -46,7 +46,6 @@ const submit = () => {
 
   if (state.userGuess === state.currentWord) {  //if they match
     feedbackDisplay.innerHTML = `That's it! Try this one`;  //show this msg
-    jumble(); //then call the new word
     userDisplay.value = "";  //clear the display
     status.userGuess = "";  //clear the guess
   } else if (state.userGuess !== state.currentWord) {  //if they do not match
@@ -56,14 +55,19 @@ const submit = () => {
 
   // https://stackoverflow.com/questions/22655144/how-to-display-a-message-for-a-few-seconds-and-then-disappear-in-javascript
   setTimeout(function () {
-    feedbackDisplay.innerHTML = "";
+    feedbackDisplay.innerHTML = ""; //remove the feedback msg
+    //if this is true, show new word
+    if (state.userGuess === state.currentWord) {
+      jumble();
+    }
   }, 1500);
-
-  console.log(state.currentWord, state.userGuess)
 }
 
 // Clicking the "OK, IDK" button returns the answer which is in state.currentWord. It returns the answer to the hidden feedback div.
-const idk = () => feedbackDisplay.innerHTML = `It was: ${state.currentWord}`;
+const idk = () => {
+  feedbackDisplay.innerHTML = `It was: ${state.currentWord}`;
+  setTimeout()
+}
 
 // Event Listeners
 startBtn.addEventListener("click", start);
