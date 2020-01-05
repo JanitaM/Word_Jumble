@@ -70,7 +70,16 @@ p { max-width: 200px; }
 
 #submit { 
   background: #1F3A8C; 
-  margin: 30px 0 20px;
+  margin: 20px 0;
+  display: none;
 }
 
-#idk { background: #BF344D;}
+#idk { 
+  background: #BF344D; 
+  display: none;
+}
+
+#start { 
+  background: orange; 
+  margin-top: 20px;
+}
