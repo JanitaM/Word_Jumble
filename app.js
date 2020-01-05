@@ -1,7 +1,8 @@
 state = {
   currentWord: "",
   jumbledWord: "",
-  usedWords: []  //don't repeat these used words
+  usedWords: [],  //don't repeat these used words
+  userGuess: ""
 }
 
 // Array of words
@@ -13,7 +14,7 @@ let
   submitBtn = document.getElementById("submit"),
   idkBtn = document.getElementById("idk"),
   jumbleDisplay = document.getElementById("jumble-display"),
-  userDisplay = document.getElementById("jumble-display"),
+  userDisplay = document.getElementById("user-display"),
   feedbackDisplay = document.getElementById("feedback");
 
 // Functions
@@ -40,11 +41,19 @@ const start = () => {
 
 // Submit function
 const submit = () => {
-  // save the user's answer to a variable
-  userGuess = "";
-  userDisplay.value = userDisplay.innerHTML;
-  userGuess = userDisplay.value.toLowerCase();
-  console.log(userGuess);
+  userDisplay.innerHTML = userDisplay.value;  //get user's answer
+  state.userGuess = userDisplay.value.toLowerCase();  //convert to lowercase and save
+
+  if (state.userGuess === state.currentWord) {  //if they match
+    feedbackDisplay.innerHTML = `That's it!`;  //show this msg - need to figure out how to pause here then clear.. or I can say "That's it. Try another one." but ideally, I want to clear after 3 seconds
+    jumble();  //then call the new word
+    userDisplay.value = "";  //clear the display
+    status.userGuess = "";  //clear the guess
+  } else if (state.userGuess !== state.currentWord) {  //if they do not match
+    feedbackDisplay.innerHTML = `Nope. Try again.`;  //show this msg
+  }
+
+  console.log(state.currentWord, state.userGuess)
 }
 
 // Clicking the "OK, IDK" button returns the answer which is in state.currentWord. It returns the answer to the hidden feedback div.
