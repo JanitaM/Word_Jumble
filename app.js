@@ -45,13 +45,19 @@ const submit = () => {
   state.userGuess = userDisplay.value.toLowerCase();  //convert to lowercase and save
 
   if (state.userGuess === state.currentWord) {  //if they match
-    feedbackDisplay.innerHTML = `That's it!`;  //show this msg - need to figure out how to pause here then clear.. or I can say "That's it. Try another one." but ideally, I want to clear after 3 seconds
-    jumble();  //then call the new word
+    feedbackDisplay.innerHTML = `That's it! Try this one`;  //show this msg
+    jumble(); //then call the new word
     userDisplay.value = "";  //clear the display
     status.userGuess = "";  //clear the guess
   } else if (state.userGuess !== state.currentWord) {  //if they do not match
     feedbackDisplay.innerHTML = `Nope. Try again.`;  //show this msg
+    userDisplay.value = "";  //clear the display
   }
+
+  // https://stackoverflow.com/questions/22655144/how-to-display-a-message-for-a-few-seconds-and-then-disappear-in-javascript
+  setTimeout(function () {
+    feedbackDisplay.innerHTML = "";
+  }, 1500);
 
   console.log(state.currentWord, state.userGuess)
 }
