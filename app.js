@@ -18,26 +18,31 @@ let
   feedbackDisplay = document.getElementById("feedback");
 
 // Functions
-// Jumble function - removes a random word from the array and shuffles the letters in the word
+// Jumble function - removes a random word from the array, calls the shuffles function, and displays the shuffled word
 const jumble = () => {
   let index = Math.floor(Math.random() * words.length);  //pick a random index
-  state.usedWords = words.splice(index, 1); //remove word at random index - splice returns an array
+  state.usedWords = words.splice(index, 1); //remove word at random index (splice returns an array)
   state.currentWord = state.usedWords.shift();  //remove the first word in the array
-
-  //take currentword convert it to lower case
-
-  // shuffle the letters around and save to state.jumbleWord
-  //saving the word to be shuffled
-
-
-  // index = Math.floor(Math.random() * word.length);
-
-  jumbleDisplay.innerHTML = state.currentWord; //change this to display shuffled version which is in state.jumbledWord
+  state.jumbledWord = shuffelWord(state.currentWord);  //call the shuffle function
+  jumbleDisplay.innerHTML = state.jumbledWord; //change this to display shuffled version which is in state.jumbledWord
 
   if (words.length === 0) {  //if there are no words left
     jumbleDisplay.innerHTML = "";  //clear the display
     feedbackDisplay.innerHTML = `Game over!`;  //show this msg
+    submitBtn.style.display = "none";
+    idkBtn.style.display = "none";
   }
+}
+
+// Shuffle the letters
+const shuffelWord = (word) => {
+  let temp = "";  //empty variable to save the shuffled word
+  word = word.split('');  //save the letters in an array
+  while (word.length > 0) {
+    //not sure what "<<"" does but randomly save the letters in the temp variable
+    temp += word.splice(word.length * Math.random() << 0, 1);
+  }
+  return temp;  //returns temp to the jumble function and saves it to state.jumbledWord
 }
 
 // Start the game
